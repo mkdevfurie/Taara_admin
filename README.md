@@ -23,7 +23,7 @@ npm install
 npm run dev    # http://localhost:5173
 ```
 
-Le `vite.config.ts` proxifie `/api/*` vers `http://localhost:3000` en dev.
+Le `vite.config.ts` proxifie `/api/*` vers `http://localhost:3000` en dev (surchargeable : `API_PROXY_TARGET=http://localhost:3010 npm run dev`).
 
 ## Pages
 
@@ -34,7 +34,7 @@ Le `vite.config.ts` proxifie `/api/*` vers `http://localhost:3000` en dev.
 | `/users`          | Liste users + filtre par rôle + ban/débanir        |
 | `/professionals`  | Cards pros + vérification / dévérification         |
 | `/jobs`           | Liste jobs + filtre par statut                     |
-| `/withdrawals`    | Retraits en attente + validation manuelle          |
+| `/withdrawals`    | Retraits en attente + validation / refus (recrédit) |
 
 ## Auth
 
