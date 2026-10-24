@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import { api } from '../lib/api';
@@ -30,6 +30,22 @@ export function WithdrawalsPage() {
     },
     onError: () => toast.error('Erreur de validation'),
   });
+
+  const reject = useMutation({
+    mutationFn: ({ id, reason }: { id: string; reason?: string }) =>
+      api.post(`/admin/withdrawals/${id}/reject`, { reason }),
+    onSuccess: () => {
+      toast.success('Retrait refusé — montant recrédité');
+      queryClient.invalidateQueries({ queryKey: ['admin', 'withdrawals'] });
+    },
+    onError: () => toast.error('Erreur lors du refus'),
+  });
+
+  const askReject = (id: string) => {
+    const reason = window.prompt('Motif du refus (visible par le pro) :');
+    if (reason === null) return;
+    reject.mutate({ id, reason: reason.trim() || undefined });
+  };
 
   return (
     <div>
@@ -64,8 +80,15 @@ export function WithdrawalsPage() {
                   </div>
                 </div>
                 <button
+                  onClick={() => askReject(w.id)}
+                  disabled={reject.isPending || approve.isPending}
+                  className="btn-outline text-red-600"
+                >
+                  <XCircle className="h-4 w-4" /> Refuser
+                </button>
+                <button
                   onClick={() => approve.mutate(w.id)}
-                  disabled={approve.isPending}
+                  disabled={approve.isPending || reject.isPending}
                   className="btn-primary"
                 >
                   <CheckCircle2 className="h-4 w-4" /> Valider
