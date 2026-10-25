@@ -33,6 +33,7 @@ Le `vite.config.ts` proxifie `/api/*` vers `http://localhost:3000` en dev (surch
 | `/`               | Dashboard (KPI users, jobs, revenus, diagnostics)  |
 | `/users`          | Liste users + filtre par rôle + ban/débanir        |
 | `/professionals`  | Cards pros + vérification / dévérification         |
+| `/subscriptions`  | Abonnements des pros : statut (essai / actif / expiré), activation et prolongation après paiement Mobile Money |
 | `/jobs`           | Liste jobs + filtre par statut                     |
 | `/withdrawals`    | Retraits en attente + validation / refus (recrédit) |
 

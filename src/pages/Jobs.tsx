@@ -22,11 +22,11 @@ interface Paged<T> {
 }
 
 const STATUS_COLORS: Record<JobStatus, string> = {
-  PENDING: 'bg-amber-100 text-amber-700',
+  PENDING: 'bg-amber-100 text-amber-300',
   ACCEPTED: 'bg-blue-100 text-blue-700',
   IN_PROGRESS: 'bg-indigo-100 text-indigo-700',
-  COMPLETED: 'bg-emerald-100 text-emerald-700',
-  CANCELLED: 'bg-rose-100 text-rose-700',
+  COMPLETED: 'bg-emerald-100 text-emerald-300',
+  CANCELLED: 'bg-rose-100 text-rose-300',
 };
 
 export function JobsPage() {
@@ -45,28 +45,30 @@ export function JobsPage() {
   return (
     <div>
       <h1 className="mb-1 text-2xl font-semibold">Jobs</h1>
-      <p className="mb-6 text-sm text-slate-500">Tous les jobs de la plateforme.</p>
+      <p className="mb-6 text-sm text-slate-400">Tous les jobs de la plateforme.</p>
 
       <div className="mb-4 flex flex-wrap gap-2">
-        {(['', 'PENDING', 'ACCEPTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'] as const).map((s) => (
-          <button
-            key={s || 'all'}
-            onClick={() => setStatus(s)}
-            className={clsx(
-              'btn text-xs',
-              status === s
-                ? 'bg-taara-600 text-white'
-                : 'bg-white text-slate-600 border border-slate-200',
-            )}
-          >
-            {s || 'Tous'}
-          </button>
-        ))}
+        {(['', 'PENDING', 'ACCEPTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'] as const).map(
+          (s) => (
+            <button
+              key={s || 'all'}
+              onClick={() => setStatus(s)}
+              className={clsx(
+                'btn text-xs',
+                status === s
+                  ? 'bg-taara-600 text-white'
+                  : 'bg-white/5 text-slate-300 border border-white/10',
+              )}
+            >
+              {s || 'Tous'}
+            </button>
+          ),
+        )}
       </div>
 
       <div className="card overflow-hidden p-0">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-left text-xs uppercase tracking-wider text-slate-500">
+          <thead className="bg-white/5 text-left text-xs uppercase tracking-wider text-slate-400">
             <tr>
               <th className="px-4 py-3">Client</th>
               <th className="px-4 py-3">Pro</th>
@@ -79,23 +81,21 @@ export function JobsPage() {
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-slate-500">
+                <td colSpan={6} className="px-4 py-10 text-center text-slate-400">
                   Chargement…
                 </td>
               </tr>
             ) : (
               data?.items.map((j) => (
-                <tr key={j.id} className="border-t border-slate-100">
+                <tr key={j.id} className="border-t border-white/10">
                   <td className="px-4 py-3">
                     {j.jobRequest.client.firstName} {j.jobRequest.client.lastName}
                   </td>
                   <td className="px-4 py-3">
                     {j.professional.user.firstName} {j.professional.user.lastName}
                   </td>
-                  <td className="px-4 py-3 text-slate-600">{j.diagnostic.problemType}</td>
-                  <td className="px-4 py-3">
-                    {j.actualPrice ?? j.quotedPrice} FCFA
-                  </td>
+                  <td className="px-4 py-3 text-slate-300">{j.diagnostic.problemType}</td>
+                  <td className="px-4 py-3">{j.actualPrice ?? j.quotedPrice} FCFA</td>
                   <td className="px-4 py-3">
                     <span className={clsx('badge', STATUS_COLORS[j.status])}>{j.status}</span>
                   </td>
@@ -107,7 +107,7 @@ export function JobsPage() {
             )}
           </tbody>
         </table>
-        <div className="border-t border-slate-100 px-4 py-3 text-xs text-slate-500">
+        <div className="border-t border-white/10 px-4 py-3 text-xs text-slate-400">
           {data ? `${data.total} jobs` : ''}
         </div>
       </div>

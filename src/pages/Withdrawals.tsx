@@ -50,12 +50,12 @@ export function WithdrawalsPage() {
   return (
     <div>
       <h1 className="mb-1 text-2xl font-semibold">Retraits en attente</h1>
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-slate-400">
         Vérifiez le compte du pro, effectuez le virement / Mobile Money, puis validez.
       </p>
 
       {isLoading ? (
-        <div className="text-sm text-slate-500">Chargement…</div>
+        <div className="text-sm text-slate-400">Chargement…</div>
       ) : data && data.length > 0 ? (
         <div className="space-y-3">
           {data.map((w) => (
@@ -67,7 +67,7 @@ export function WithdrawalsPage() {
                 <div className="text-xs text-slate-400">
                   {w.wallet.user.email} · {w.wallet.user.phone}
                 </div>
-                <div className="mt-1 text-xs text-slate-500">{w.description}</div>
+                <div className="mt-1 text-xs text-slate-400">{w.description}</div>
                 <div className="mt-1 text-xs text-slate-400">
                   {new Date(w.createdAt).toLocaleString('fr-FR')}
                 </div>
@@ -82,7 +82,7 @@ export function WithdrawalsPage() {
                 <button
                   onClick={() => askReject(w.id)}
                   disabled={reject.isPending || approve.isPending}
-                  className="btn-outline text-red-600"
+                  className="btn-outline text-rose-400"
                 >
                   <XCircle className="h-4 w-4" /> Refuser
                 </button>
@@ -98,9 +98,7 @@ export function WithdrawalsPage() {
           ))}
         </div>
       ) : (
-        <div className="card text-center text-sm text-slate-500">
-          Aucun retrait en attente.
-        </div>
+        <div className="card text-center text-sm text-slate-400">Aucun retrait en attente.</div>
       )}
     </div>
   );

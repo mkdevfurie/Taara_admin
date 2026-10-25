@@ -13,7 +13,8 @@ initSentry();
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { staleTime: 30_000, refetchOnWindowFocus: false, retry: 1 },
+    // Données rafraîchies toutes les 20 s : nouvelles inscriptions, retraits, abonnements…
+    queries: { staleTime: 15_000, refetchInterval: 20_000, refetchOnWindowFocus: true, retry: 1 },
   },
 });
 

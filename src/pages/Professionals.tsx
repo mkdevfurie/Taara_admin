@@ -43,7 +43,8 @@ export function ProfessionalsPage() {
       (
         await api.get<Paged<Pro>>('/admin/professionals', {
           params: {
-            verifiedOnly: filter === 'verified' ? true : filter === 'unverified' ? false : undefined,
+            verifiedOnly:
+              filter === 'verified' ? true : filter === 'unverified' ? false : undefined,
             perPage: 50,
           },
         })
@@ -63,7 +64,7 @@ export function ProfessionalsPage() {
   return (
     <div>
       <h1 className="mb-1 text-2xl font-semibold">Professionnels</h1>
-      <p className="mb-6 text-sm text-slate-500">Validez ou retirez la vérification des pros.</p>
+      <p className="mb-6 text-sm text-slate-400">Validez ou retirez la vérification des pros.</p>
 
       <div className="mb-4 flex gap-2">
         {(['all', 'verified', 'unverified'] as const).map((f) => (
@@ -72,7 +73,9 @@ export function ProfessionalsPage() {
             onClick={() => setFilter(f)}
             className={clsx(
               'btn',
-              filter === f ? 'bg-taara-600 text-white' : 'bg-white text-slate-600 border border-slate-200',
+              filter === f
+                ? 'bg-taara-600 text-white'
+                : 'bg-white/5 text-slate-300 border border-white/10',
             )}
           >
             {f === 'all' ? 'Tous' : f === 'verified' ? 'Vérifiés' : 'À vérifier'}
@@ -81,7 +84,7 @@ export function ProfessionalsPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-sm text-slate-500">Chargement…</div>
+        <div className="text-sm text-slate-400">Chargement…</div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {data?.items.map((p) => (
@@ -94,9 +97,9 @@ export function ProfessionalsPage() {
                   <div className="text-xs text-slate-400">{p.user.email}</div>
                 </div>
                 {p.isVerified ? (
-                  <span className="badge bg-emerald-100 text-emerald-700">Vérifié</span>
+                  <span className="badge bg-emerald-100 text-emerald-300">Vérifié</span>
                 ) : (
-                  <span className="badge bg-amber-100 text-amber-700">À vérifier</span>
+                  <span className="badge bg-amber-100 text-amber-300">À vérifier</span>
                 )}
               </div>
               <div className="mt-2 flex flex-wrap gap-1">
@@ -123,10 +126,10 @@ export function ProfessionalsPage() {
                   </div>
                 </div>
               </div>
-              <div className="mt-2 text-xs text-slate-500">
+              <div className="mt-2 text-xs text-slate-400">
                 Zones : {p.serviceZone.join(', ') || '—'}
               </div>
-              <div className="mt-2 text-xs text-slate-500">
+              <div className="mt-2 text-xs text-slate-400">
                 {p.certifications.length} certification(s)
               </div>
               <div className="mt-4 flex gap-2">

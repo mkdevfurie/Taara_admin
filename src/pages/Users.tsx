@@ -54,7 +54,7 @@ export function UsersPage() {
   return (
     <div>
       <h1 className="mb-1 text-2xl font-semibold">Utilisateurs</h1>
-      <p className="mb-6 text-sm text-slate-500">
+      <p className="mb-6 text-sm text-slate-400">
         Gérez les comptes clients, professionnels et admins.
       </p>
 
@@ -82,7 +82,7 @@ export function UsersPage() {
 
       <div className="card overflow-hidden p-0">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-left text-xs uppercase tracking-wider text-slate-500">
+          <thead className="bg-white/5 text-left text-xs uppercase tracking-wider text-slate-400">
             <tr>
               <th className="px-4 py-3">Utilisateur</th>
               <th className="px-4 py-3">Rôle</th>
@@ -94,13 +94,13 @@ export function UsersPage() {
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-slate-500">
+                <td colSpan={5} className="px-4 py-10 text-center text-slate-400">
                   Chargement…
                 </td>
               </tr>
             ) : (
               data?.items.map((u) => (
-                <tr key={u.id} className="border-t border-slate-100">
+                <tr key={u.id} className="border-t border-white/10">
                   <td className="px-4 py-3">
                     <div className="font-medium">
                       {u.firstName} {u.lastName}
@@ -112,26 +112,26 @@ export function UsersPage() {
                       className={clsx(
                         'badge',
                         u.userType === 'ADMIN'
-                          ? 'bg-rose-100 text-rose-700'
+                          ? 'bg-rose-100 text-rose-300'
                           : u.userType === 'PRO'
-                          ? 'bg-amber-100 text-amber-700'
-                          : 'bg-slate-100 text-slate-700',
+                            ? 'bg-amber-100 text-amber-300'
+                            : 'bg-white/10 text-slate-200',
                       )}
                     >
                       {u.userType}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-slate-600">
+                  <td className="px-4 py-3 text-slate-300">
                     <div>{u.email}</div>
                     <div className="text-xs text-slate-400">{u.phone}</div>
                   </td>
                   <td className="px-4 py-3">
                     {u.isBanned ? (
-                      <span className="badge bg-rose-100 text-rose-700">Banni</span>
+                      <span className="badge bg-rose-100 text-rose-300">Banni</span>
                     ) : u.isVerified ? (
-                      <span className="badge bg-emerald-100 text-emerald-700">Vérifié</span>
+                      <span className="badge bg-emerald-100 text-emerald-300">Vérifié</span>
                     ) : (
-                      <span className="badge bg-slate-100 text-slate-600">Non vérifié</span>
+                      <span className="badge bg-white/10 text-slate-300">Non vérifié</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -157,7 +157,7 @@ export function UsersPage() {
             )}
           </tbody>
         </table>
-        <div className="border-t border-slate-100 px-4 py-3 text-xs text-slate-500">
+        <div className="border-t border-white/10 px-4 py-3 text-xs text-slate-400">
           {data ? `${data.total} utilisateurs` : ''}
         </div>
       </div>

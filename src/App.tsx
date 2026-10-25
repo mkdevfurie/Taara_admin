@@ -6,6 +6,7 @@ import { UsersPage } from './pages/Users';
 import { ProfessionalsPage } from './pages/Professionals';
 import { JobsPage } from './pages/Jobs';
 import { WithdrawalsPage } from './pages/Withdrawals';
+import { SubscriptionsPage } from './pages/Subscriptions';
 import { Layout } from './components/Layout';
 import { useAuthStore } from './store/auth';
 
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="users" element={<UsersPage />} />
         <Route path="professionals" element={<ProfessionalsPage />} />
         <Route path="jobs" element={<JobsPage />} />
+        <Route path="subscriptions" element={<SubscriptionsPage />} />
         <Route path="withdrawals" element={<WithdrawalsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
