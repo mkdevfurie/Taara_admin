@@ -22,6 +22,8 @@ interface Pro {
   certifications: string[];
   experience: number;
   bio: string | null;
+  guarantorName: string | null;
+  guarantorPhone: string | null;
   serviceZone: string[];
   isVerified: boolean;
   rating: number;
@@ -67,8 +69,9 @@ export function ProfessionalsPage() {
     <div>
       <h1 className="mb-1 text-2xl font-semibold">Professionnels</h1>
       <p className="mb-6 text-sm text-slate-400">
-        Avant de vérifier un pro : appelez-le, ouvrez ses justificatifs et contrôlez que sa fiche
-        est complète. Il est prévenu dans l'app dès que vous validez.
+        Aucun diplôme n'est exigé. Avant de vérifier un pro : appelez-le, regardez ses preuves
+        (photos de réparations, atelier, attestation…) ou appelez sa personne garante. Il est prévenu
+        dans l'app dès que vous validez.
       </p>
 
       <div className="mb-4 flex gap-2">
@@ -98,7 +101,7 @@ export function ProfessionalsPage() {
               p.serviceZone.length === 0 && 'zone',
               !p.hourlyRate && 'tarif',
               (p.bio ?? '').trim().length < 20 && 'présentation',
-              p.certifications.length === 0 && 'justificatifs',
+              p.certifications.length === 0 && !p.guarantorPhone && 'preuves ou garant',
             ].filter(Boolean) as string[];
             return (
               <div key={p.id} className="card flex flex-col">
@@ -184,6 +187,18 @@ export function ProfessionalsPage() {
                     <div className="text-xs text-slate-500">Aucun document envoyé.</div>
                   )}
                 </div>
+
+                {p.guarantorPhone ? (
+                  <div className="mt-3 rounded-md border border-white/10 px-3 py-2 text-xs">
+                    <div className="text-slate-400">Personne garante</div>
+                    <div className="mt-0.5 text-slate-200">
+                      {p.guarantorName || 'Sans nom'} ·{' '}
+                      <a href={`tel:${p.guarantorPhone}`} className="hover:text-taara-500">
+                        {p.guarantorPhone}
+                      </a>
+                    </div>
+                  </div>
+                ) : null}
 
                 {missing.length && !p.isVerified ? (
                   <div className="mt-3 rounded-md bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
